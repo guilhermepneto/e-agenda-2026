@@ -1,0 +1,36 @@
+@{
+    Layout = "_Layout";
+    ViewBag.Titulo = "Início";
+}
+
+<div class="row g-4 pb-4">
+    <div class="col-md-6 col-lg-4">
+        <div class="card border-primary-subtle shadow-sm">
+            <div class="card-body text-center p-4">
+                <h5 class="card-title text-primary">Categorias</h5>
+                <p class="card-text text-secondary">Cadastre as categorias de despesas</p>
+                <a class="btn btn-outline-primary rounded-pill px-4" asp-controller="Categoria" asp-action="Listar">Acessar</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-lg-4">
+        <div class="card border-primary-subtle shadow-sm">
+            <div class="card-body text-center p-4">
+                <h5 class="card-title text-primary">Despesas</h5>
+                <p class="card-text text-secondary">Cadastre as suas despesas diáris</p>
+                <a class="btn btn-outline-primary rounded-pill px-4" asp-controller="Despesa" asp-action="Listar">Acessar</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-lg-4">
+        <div class="card border-primary-subtle shadow-sm">
+            <div class="card-body text-center p-4">
+                <h5 class="card-title text-primary">Tarefas</h5>
+                <p class="card-text text-secondary">Cadastre e gerencia as suas tarefas</p>
+                <a class="btn btn-outline-primary rounded-pill px-4" asp-controller="Tarefa" asp-action="Listar">Acessar</a>
+            </div>
+        </div>
+    </div>
+</div>

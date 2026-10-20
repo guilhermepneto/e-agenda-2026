@@ -1,0 +1,78 @@
+@using eAgenda.Dominio.Modulos.Despesas
+@{
+    Layout = "_Layout";
+    ViewBag.Titulo = "Listagem de Despesas";
+}
+
+@model List<DespesaDto>;
+
+<a class="btn btn-outline-primary rounded-pill px-4 mb-3" asp-action="Cadastrar">Cadastrar Nova</a>
+
+@if (!string.IsNullOrWhiteSpace(TempData["MensagemErro"]?.ToString()))
+{
+    <div class="alert alert-danger border-start border-danger border-4 rounded-3" role="alert">
+        @TempData["MensagemErro"]!.ToString()
+    </div>
+}
+
+@if (Model.Count == 0)
+{
+    <div class="alert alert-primary border-start border-primary border-4 rounded-3" role="alert">
+        Nenhuma despesa cadastrada.
+    </div>
+}
+else
+{
+    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-2">
+        @foreach (DespesaDto d in Model)
+        {
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start gap-3 mb-3">
+
+                            <div class="d-flex flex-column gap-1">
+                                <div class="d-flex gap-2 my-1">
+                                    @foreach (CategoriaDespesaDto categoria in d.Categorias)
+                                    {
+                                        <span class="badge bg-secondary rounded-pill small">@categoria.Titulo</span>
+                                    }
+                                </div>
+                                <h5 class="card-title mb-0">@d.Descricao</h5>
+                            </div>
+
+                            <span class="badge text-bg-primary rounded-pill">@d.Id.ToString("N")[..8]</span>
+                        </div>
+
+                        <dl class="row g-2 mb-4">
+                            <dt class="col-5 text-secondary fw-semibold">Data de Ocorrência</dt>
+                            <dd class="col-7 mb-0">@d.DataOcorrencia.ToShortDateString()</dd>
+
+                            <dt class="col-5 text-secondary fw-semibold">Forma de Pagamento</dt>
+                            @if (d.FormaPagamento == FormaPagamento.AVista)
+                            {
+                                <dd class="col-7 mb-0">À Vista</dd>
+                            }
+                            else if (d.FormaPagamento == FormaPagamento.Credito)
+                            {
+                                <dd class="col-7 mb-0">Crédito</dd>
+                            }
+                            else
+                            {
+                                <dd class="col-7 mb-0">Débito</dd>
+                            }
+
+                            <dt class="col-5 text-secondary fw-semibold">Valor</dt>
+                            <dd class="col-7 mb-0">@d.Valor.ToString("C2")</dd>
+                        </dl>
+
+                        <div class="d-flex flex-wrap gap-2 mt-auto justify-content-end">
+                            <a class="btn btn-outline-primary btn-sm rounded-pill px-3" asp-action="Editar" asp-route-id="@d.Id">Editar</a>
+                            <a class="btn btn-outline-primary btn-sm rounded-pill px-3" asp-action="Excluir" asp-route-id="@d.Id">Excluir</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

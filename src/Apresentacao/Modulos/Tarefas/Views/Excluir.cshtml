@@ -1,0 +1,33 @@
+@{
+    Layout = "_Layout";
+    ViewBag.Titulo = "Edição de Tarefa";
+}
+
+@model ExcluirTarefaViewModel;
+
+<form class="card border-primary-subtle shadow-sm mx-auto p-4" style="max-width: 620px;" asp-action="Excluir" asp-route-id="@Model.Id" method="post">
+
+    <div class="alert alert-danger border-start border-danger border-4 rounded-3" role="alert">
+        Deseja realmente excluir esta tarefa?
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Titulo" class="form-label fw-semibold text-primary text-uppercase small">Título</label>
+        <input asp-for="Titulo" type="text" class="form-control" readonly>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Prioridade" class="form-label fw-semibold text-primary text-uppercase small">Prioridade</label>
+        <input asp-for="Prioridade" type="text" class="form-control" readonly>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="DataCriacao" class="form-label fw-semibold text-primary text-uppercase small">Prioridade</label>
+        <input asp-for="DataCriacao" type="date" class="form-control" readonly>
+    </div>
+
+    <div class="d-flex justify-content-end gap-2 mt-4">
+        <a class="btn btn-outline-primary rounded-pill px-4" asp-action="Listar">Voltar</a>
+        <button class="btn btn-danger rounded-pill px-4" type="submit">Confirmar</button>
+    </div>
+</form>
