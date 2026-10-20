@@ -1,0 +1,19 @@
+@{
+    Layout = "_Layout";
+    ViewBag.Titulo = "Contatos";
+}
+@model List<ContatoDto>
+<a class="btn btn-primary rounded-pill mb-3" asp-action="Cadastrar">Cadastrar contato</a>
+@if (TempData["MensagemErro"] is string erro) { <div class="alert alert-danger">@erro</div> }
+@if (TempData["MensagemSucesso"] is string sucesso) { <div class="alert alert-success">@sucesso</div> }
+@if (Model.Count == 0) { <div class="alert alert-info">Nenhum contato cadastrado.</div> }
+else {
+<div class="table-responsive"><table class="table table-striped align-middle">
+<thead><tr><th>Nome</th><th>E-mail</th><th>Telefone</th><th>Cargo</th><th>Empresa</th><th></th></tr></thead>
+<tbody>
+@foreach (var c in Model) {
+<tr><td>@c.Nome</td><td>@c.Email</td><td>@c.Telefone</td><td>@(c.Cargo ?? "-")</td><td>@(c.Empresa ?? "-")</td>
+<td class="text-end text-nowrap"><a class="btn btn-sm btn-outline-primary" asp-action="Editar" asp-route-id="@c.Id">Editar</a> <a class="btn btn-sm btn-outline-danger" asp-action="Excluir" asp-route-id="@c.Id">Excluir</a></td></tr>
+}
+</tbody></table></div>
+}

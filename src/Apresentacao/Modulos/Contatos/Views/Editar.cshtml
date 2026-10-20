@@ -1,0 +1,12 @@
+@{ Layout = "_Layout"; ViewBag.Titulo = "Editar contato"; }
+@model EditarContatoViewModel
+<form class="card shadow-sm mx-auto p-4" style="max-width:700px" asp-action="Editar" method="post">
+<input asp-for="Id" type="hidden">
+<div class="mb-3"><label asp-for="Nome" class="form-label">Nome *</label><input asp-for="Nome" class="form-control" maxlength="100" required><span asp-validation-for="Nome" class="text-danger"></span></div>
+<div class="mb-3"><label asp-for="Email" class="form-label">E-mail *</label><input asp-for="Email" type="email" class="form-control" maxlength="254" required><span asp-validation-for="Email" class="text-danger"></span></div>
+<div class="mb-3"><label asp-for="Telefone" class="form-label">Telefone * (XX) XXXXX-XXXX</label><input asp-for="Telefone" class="form-control" placeholder="(11) 91234-5678" required><span asp-validation-for="Telefone" class="text-danger"></span></div>
+<div class="mb-3"><label asp-for="Cargo" class="form-label">Cargo (opcional)</label><input asp-for="Cargo" class="form-control" maxlength="100"></div>
+<div class="mb-3"><label asp-for="Empresa" class="form-label">Empresa (opcional)</label><input asp-for="Empresa" class="form-control" maxlength="150"></div>
+@if (TempData["MensagemErro"] is string erro) { <div class="alert alert-danger">@erro</div> }
+<div class="d-flex justify-content-end gap-2"><a asp-action="Listar" class="btn btn-outline-secondary">Cancelar</a><button class="btn btn-primary" type="submit">Salvar</button></div>
+</form>

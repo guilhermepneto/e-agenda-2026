@@ -1,0 +1,19 @@
+@{
+    Layout = "_Layout";
+    ViewBag.Titulo = "Compromissos";
+}
+@model List<CompromissoDto>
+<a class="btn btn-primary rounded-pill mb-3" asp-action="Cadastrar">Cadastrar compromisso</a>
+@if (TempData["MensagemErro"] is string erro) { <div class="alert alert-danger">@erro</div> }
+@if (TempData["MensagemSucesso"] is string sucesso) { <div class="alert alert-success">@sucesso</div> }
+@if (Model.Count == 0) { <div class="alert alert-info">Nenhum compromisso cadastrado.</div> }
+else {
+<div class="table-responsive"><table class="table table-striped align-middle">
+<thead><tr><th>Assunto</th><th>Data</th><th>Horário</th><th>Tipo</th><th>Link / Local</th><th>Contato</th><th></th></tr></thead>
+<tbody>
+@foreach (var c in Model) {
+<tr><td>@c.Assunto</td><td>@c.DataOcorrencia.ToString("dd/MM/yyyy")</td><td>@c.HoraInicio.ToString("HH:mm") - @c.HoraTermino.ToString("HH:mm")</td><td>@c.Tipo</td><td>@c.LinkOuLocal</td><td>@(c.NomeContato ?? "-")</td>
+<td class="text-end text-nowrap"><a class="btn btn-sm btn-outline-primary" asp-action="Editar" asp-route-id="@c.Id">Editar</a> <a class="btn btn-sm btn-outline-danger" asp-action="Excluir" asp-route-id="@c.Id">Excluir</a></td></tr>
+}
+</tbody></table></div>
+}
