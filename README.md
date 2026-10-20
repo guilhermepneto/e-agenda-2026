@@ -151,3 +151,17 @@ Campos obrigatórios:
 ## Requisitos
 
 - .NET 10.0 SDK
+
+
+## Configuração do banco de dados e Azure
+
+A aplicação usa SQL Server e aplica as migrations pendentes ao iniciar. Em desenvolvimento, configure a chave `ConnectionStrings:SqlServer` em `appsettings.Development.json` ou em User Secrets. Na Azure App Service, configure `ConnectionStrings__SqlServer` nas **Configuration > Application settings** com a connection string do Azure SQL Database. Não publique credenciais no repositório.
+
+Para executar localmente a partir da pasta do projeto:
+
+```powershell
+dotnet restore
+dotnet run --project src/Apresentacao/eAgenda.WebApp.csproj
+```
+
+A publicação na Azure e a criação/configuração do Azure SQL Database ainda precisam ser feitas na conta Azure do responsável pelo projeto; não foram executadas por esta alteração local.

@@ -22,6 +22,37 @@ namespace eAgenda.Infraestrutura.Compartilhado.Orm.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+
+            modelBuilder.Entity("eAgenda.Dominio.Modulos.Contatos.Contato", b =>
+                {
+                    b.Property<Guid>("Id").HasColumnType("uniqueidentifier");
+                    b.Property<string>("Cargo").HasMaxLength(100).HasColumnType("nvarchar(100)");
+                    b.Property<string>("Email").IsRequired().HasMaxLength(254).HasColumnType("nvarchar(254)");
+                    b.Property<string>("Empresa").HasMaxLength(150).HasColumnType("nvarchar(150)");
+                    b.Property<string>("Nome").IsRequired().HasMaxLength(100).HasColumnType("nvarchar(100)");
+                    b.Property<string>("Telefone").IsRequired().HasMaxLength(20).HasColumnType("nvarchar(20)");
+                    b.HasKey("Id");
+                    b.HasIndex("Email").IsUnique();
+                    b.HasIndex("Telefone").IsUnique();
+                    b.ToTable("TBContatos", (string)null);
+                });
+
+            modelBuilder.Entity("eAgenda.Dominio.Modulos.Compromissos.Compromisso", b =>
+                {
+                    b.Property<Guid>("Id").HasColumnType("uniqueidentifier");
+                    b.Property<string>("Assunto").IsRequired().HasMaxLength(100).HasColumnType("nvarchar(100)");
+                    b.Property<Guid?>("ContatoId").HasColumnType("uniqueidentifier");
+                    b.Property<DateOnly>("DataOcorrencia").HasColumnType("date");
+                    b.Property<TimeOnly>("HoraInicio").HasColumnType("time");
+                    b.Property<TimeOnly>("HoraTermino").HasColumnType("time");
+                    b.Property<string>("LinkOuLocal").IsRequired().HasMaxLength(500).HasColumnType("nvarchar(500)");
+                    b.Property<string>("Tipo").IsRequired().HasMaxLength(20).HasColumnType("nvarchar(20)");
+                    b.HasKey("Id");
+                    b.HasIndex("ContatoId");
+                    b.HasIndex("DataOcorrencia", "HoraInicio", "HoraTermino");
+                    b.ToTable("TBCompromissos", (string)null);
+                });
+
             modelBuilder.Entity("TBDespesasCategorias", b =>
                 {
                     b.Property<Guid>("CategoriasId")
@@ -80,6 +111,16 @@ namespace eAgenda.Infraestrutura.Compartilhado.Orm.Migrations
                     b.ToTable("TBDespesas", (string)null);
                 });
 
+
+            modelBuilder.Entity("eAgenda.Dominio.Modulos.Compromissos.Compromisso", b =>
+                {
+                    b.HasOne("eAgenda.Dominio.Modulos.Contatos.Contato", "Contato")
+                        .WithMany()
+                        .HasForeignKey("ContatoId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                    b.Navigation("Contato");
+                });
+
             modelBuilder.Entity("eAgenda.Dominio.Modulos.Tarefas.ItemTarefa", b =>
                 {
                     b.Property<Guid>("Id")
@@ -134,6 +175,37 @@ namespace eAgenda.Infraestrutura.Compartilhado.Orm.Migrations
                     b.ToTable("TBTarefas", (string)null);
                 });
 
+
+            modelBuilder.Entity("eAgenda.Dominio.Modulos.Contatos.Contato", b =>
+                {
+                    b.Property<Guid>("Id").HasColumnType("uniqueidentifier");
+                    b.Property<string>("Cargo").HasMaxLength(100).HasColumnType("nvarchar(100)");
+                    b.Property<string>("Email").IsRequired().HasMaxLength(254).HasColumnType("nvarchar(254)");
+                    b.Property<string>("Empresa").HasMaxLength(150).HasColumnType("nvarchar(150)");
+                    b.Property<string>("Nome").IsRequired().HasMaxLength(100).HasColumnType("nvarchar(100)");
+                    b.Property<string>("Telefone").IsRequired().HasMaxLength(20).HasColumnType("nvarchar(20)");
+                    b.HasKey("Id");
+                    b.HasIndex("Email").IsUnique();
+                    b.HasIndex("Telefone").IsUnique();
+                    b.ToTable("TBContatos", (string)null);
+                });
+
+            modelBuilder.Entity("eAgenda.Dominio.Modulos.Compromissos.Compromisso", b =>
+                {
+                    b.Property<Guid>("Id").HasColumnType("uniqueidentifier");
+                    b.Property<string>("Assunto").IsRequired().HasMaxLength(100).HasColumnType("nvarchar(100)");
+                    b.Property<Guid?>("ContatoId").HasColumnType("uniqueidentifier");
+                    b.Property<DateOnly>("DataOcorrencia").HasColumnType("date");
+                    b.Property<TimeOnly>("HoraInicio").HasColumnType("time");
+                    b.Property<TimeOnly>("HoraTermino").HasColumnType("time");
+                    b.Property<string>("LinkOuLocal").IsRequired().HasMaxLength(500).HasColumnType("nvarchar(500)");
+                    b.Property<string>("Tipo").IsRequired().HasMaxLength(20).HasColumnType("nvarchar(20)");
+                    b.HasKey("Id");
+                    b.HasIndex("ContatoId");
+                    b.HasIndex("DataOcorrencia", "HoraInicio", "HoraTermino");
+                    b.ToTable("TBCompromissos", (string)null);
+                });
+
             modelBuilder.Entity("TBDespesasCategorias", b =>
                 {
                     b.HasOne("eAgenda.Dominio.Modulos.Categorias.Categoria", null)
@@ -147,6 +219,16 @@ namespace eAgenda.Infraestrutura.Compartilhado.Orm.Migrations
                         .HasForeignKey("DespesasId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+
+            modelBuilder.Entity("eAgenda.Dominio.Modulos.Compromissos.Compromisso", b =>
+                {
+                    b.HasOne("eAgenda.Dominio.Modulos.Contatos.Contato", "Contato")
+                        .WithMany()
+                        .HasForeignKey("ContatoId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                    b.Navigation("Contato");
                 });
 
             modelBuilder.Entity("eAgenda.Dominio.Modulos.Tarefas.ItemTarefa", b =>
